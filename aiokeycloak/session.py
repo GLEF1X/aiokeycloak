@@ -27,7 +27,7 @@ class AiohttpSession:
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
         await self.close()
 
-    async def send_request(self, method: str, url: Any, **kwargs: Any) -> Dict[str, Any]:
+    async def send_request(self, method: str, url: Any, **kwargs: Any) -> Dict[Any, Any]:
         session = await self._create_session()
         try:
             async with session.request(method, url, **kwargs) as response:
@@ -43,7 +43,7 @@ class AiohttpSession:
                         response_body=await response.read(),
                     )
                 try:
-                    await response.json(encoding="utf-8")
+                    return await response.json(encoding="utf-8")
                 except json.JSONDecodeError:
                     raise KeycloakError(
                         response_code=response.status, response_body=await response.read()

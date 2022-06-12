@@ -41,8 +41,8 @@ class OIDCUser(BaseModel):
     family_name: Optional[str] = None
     email: Optional[str] = None
     preferred_username: Optional[str] = None
-    realm_access: Optional[Dict[str, Any]] = None
-    resource_access: Optional[Dict[str, Any]] = None
+    realm_access: Optional[Dict[Any, Any]] = None
+    resource_access: Optional[Dict[Any, Any]] = None
 
     @property
     def roles(self) -> List[str]:

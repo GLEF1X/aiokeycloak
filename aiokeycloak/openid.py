@@ -44,7 +44,7 @@ class AioKeycloakOpenIDClient:
         self._session = AiohttpSession(server_url)
         self._authorization = Authorization()
 
-    async def get_well_known_configuration(self) -> Dict[str, Any]:
+    async def get_well_known_configuration(self) -> Dict[Any, Any]:
         """
         The most important endpoint to understand is the well-known configuration
                endpoint. It lists endpoints and other configuration options relevant to
@@ -151,7 +151,7 @@ class AioKeycloakOpenIDClient:
 
     async def exchange_token(
         self, token: str, client_id: str, audience: str, subject: str
-    ) -> Dict[str, Any]:
+    ) -> Dict[Any, Any]:
         """
         Use a token to obtain an entirely different token. See
         https://www.keycloak.org/docs/latest/securing_apps/index.html#_token-exchange
@@ -176,7 +176,7 @@ class AioKeycloakOpenIDClient:
             "POST", URL_TOKEN.format(**params_path), data=payload
         )
 
-    async def get_userinfo(self, access_token: str) -> Dict[str, Any]:
+    async def get_userinfo(self, access_token: str) -> Dict[Any, Any]:
         """
         The userinfo endpoint returns standard claims about the authenticated user,
         and is protected by a bearer token.
@@ -192,7 +192,7 @@ class AioKeycloakOpenIDClient:
             "GET", URL_USERINFO.format(**params_path), headers=headers
         )
 
-    async def logout(self, refresh_token: str) -> Dict[str, Any]:
+    async def logout(self, refresh_token: str) -> Dict[Any, Any]:
         """
         The logout endpoint logs out the authenticated user.
 
@@ -207,7 +207,7 @@ class AioKeycloakOpenIDClient:
             "POST", URL_LOGOUT.format(**params_path), data=payload
         )
 
-    async def get_certs(self) -> Dict[str, Any]:
+    async def get_certs(self) -> Dict[Any, Any]:
         """
         The certificate endpoint returns the public keys enabled by the realm, encoded as a
         JSON Web Key (JWK). Depending on the realm settings there can be one or more keys enabled
@@ -419,7 +419,7 @@ class AioKeycloakOpenIDClient:
             return await self.introspect(token)
         return jwt.decode(token, **kwargs)
 
-    def _add_secret_key(self, payload: Dict[str, Any]):
+    def _add_secret_key(self, payload: Dict[Any, Any]):
         """
         Add secret key if exist.
         :param payload:
